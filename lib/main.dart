@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
-import 'home_page.dart';
 
+import 'package:flutter/material.dart';
+import 'pages/home_page.dart';
+
+import 'pages/login_page.dart';
 void main(){
   runApp(MyAppa());
 }
@@ -15,7 +17,18 @@ class MyAppa extends StatelessWidget {
 
     
     return MaterialApp(
-     home:HomePage(),
+     themeMode:ThemeMode.light,
+     theme:ThemeData(
+      brightness:Brightness.dark,
+      primarySwatch:Colors.deepOrange
+     ),
+  
+    routes: {
+      "/":(context)=>LoginPage(),
+       "/home":(context)=>HomePage(),
+      "/login":(context)=>LoginPage()
+    },
     );
   }
+
 }
