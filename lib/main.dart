@@ -4,11 +4,11 @@ import 'pages/home_page.dart';
 
 import 'pages/login_page.dart';
 void main(){
-  runApp(MyAppa());
+  runApp(MyApp());
 }
 
-class MyAppa extends StatelessWidget {
- 
+class MyApp extends StatelessWidget {
+   const MyApp({super.key});
   @override
  
   Widget build(BuildContext context) {
@@ -19,12 +19,13 @@ class MyAppa extends StatelessWidget {
     return MaterialApp(
      themeMode:ThemeMode.light,
      theme:ThemeData(
-      brightness:Brightness.dark,
+      brightness:Brightness.light,
       primarySwatch:Colors.deepOrange
      ),
+     
   
     routes: {
-      "/":(context)=>LoginPage(),
+      "/":(context)=> LoginPage(),
        "/home":(context)=>HomePage(),
       "/login":(context)=>LoginPage()
     },
