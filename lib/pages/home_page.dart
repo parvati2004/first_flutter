@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:first_flutter/widgets/drawer.dart';
 
 
 
@@ -19,7 +20,7 @@ class HomePage extends StatelessWidget{
         child: Text("welcome to $days days of flutter $name"),
       ),
        ),
-      drawer:Drawer(),//menu var click kela ki drawers yeil
+      drawer:MyDrawer(),//menu var click kela ki drawers yeil
 
     );
   }
