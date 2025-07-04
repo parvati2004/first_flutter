@@ -1,0 +1,133 @@
+
+{
+"products":[
+  {
+    "id": 1,
+    "name": "iPhone 12 Pro",
+    "desc": "Apple iPhone 12th‑generation smartphone",
+    "price": 999,
+    "color": "#33505a",
+    "image": "https://m.media-amazon.com/images/I/71yzJoE7WlL._SL1500_.jpg"
+  },
+  {
+    "id": 2,
+    "name": "iPhone 13",
+    "desc": "Apple iPhone 13 with A15 Bionic chip",
+    "price": 799,
+    "color": "#1c1c1e",
+    "image": "https://m.media-amazon.com/images/I/71GLMJ7TQiL._SL1500_.jpg"
+  },
+  {
+    "id":3,
+    "name": "Samsung Galaxy S21",
+    "desc": "Samsung flagship with Dynamic AMOLED 2X display",
+    "price": 749,
+    "color": "#312e54",
+    "image": "https://m.media-amazon.com/images/I/81kfA-GtWwL._SL1500_.jpg"
+  },
+  {
+    "id": 4,
+    "name": "OnePlus 9 Pro",
+    "desc": "OnePlus 9 Pro with Hasselblad camera",
+    "price": 969,
+    "color": "#05445e",
+    "image": "https://m.media-amazon.com/images/I/61LvUvbZGlL._SL1500_.jpg"
+  },
+  {
+    "id": 5,
+    "name": "MacBook Pro 14″",
+    "desc": "Apple MacBook Pro with M3 chip",
+    "price": 1999,
+    "color": "#414141",
+    "image": "https://m.media-amazon.com/images/I/61jLiCovxVL._SL1500_.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Dell XPS 13",
+    "desc": "Dell XPS 13 ultrabook, 12‑core Intel",
+    "price": 1299,
+    "color": "#2b2d42",
+    "image": "https://m.media-amazon.com/images/I/61LLbKJ3RHL._SL1500_.jpg"
+  },
+  {
+    "id":7,
+    "name": "Apple Watch Series 7",
+    "desc": "Apple Watch Series 7 GPS + Cellular",
+    "price": 399,
+    "color": "#e63946",
+    "image": "https://m.media-amazon.com/images/I/71bhWgQK-cL._SL1500_.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Sony WH‑1000XM4",
+    "desc": "Sony noise‑cancelling over‑ear headphones",
+    "price": 348,
+    "color": "#222222",
+    "image": "https://m.media-amazon.com/images/I/71o8Q5XJS5L._SL1500_.jpg"
+  },
+  {
+    "id": 9,
+    "name": "iPad Pro 11″ (2024)",
+    "desc": "Apple iPad Pro 11″ with M4 chip",
+    "price": 1099,
+    "color": "#6f7364",
+    "image": "https://m.media-amazon.com/images/I/81CaycZommL._SL1500_.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Echo Dot (5th Gen)",
+    "desc": "Amazon Echo Dot smart speaker with Alexa",
+    "price": 59,
+    "color": "#3d5a80",
+    "image": "https://m.media-amazon.com/images/I/61u48FEs5FL._SL1500_.jpg"
+  },
+  {
+    "id": 11,
+    "name": "AirPods Pro (2nd Gen)",
+    "desc": "Apple AirPods Pro with MagSafe case",
+    "price": 249,
+    "color": "#f5f5f5",
+    "image": "https://m.media-amazon.com/images/I/61f1Yy7jLiL._SL1500_.jpg"
+  },
+  {
+    "id": 12,
+    "name": "Canon EOS R5",
+    "desc": "Canon full‑frame mirrorless camera (45 MP)",
+    "price": 3899,
+    "color": "#1a1a1a",
+    "image": "https://m.media-amazon.com/images/I/81rdeSufaPL._SL1500_.jpg"
+  },
+  {
+    "id": 13,
+    "name": "GoPro HERO10 Black",
+    "desc": "GoPro action camera with 5.3K video",
+    "price": 449,
+    "color": "#0b3d91",
+    "image": "https://m.media-amazon.com/images/I/71VY0fIJ-EL._SL1500_.jpg"
+  },
+  {
+    "id":14,
+    "name": "Nintendo Switch OLED",
+    "desc": "Nintendo Switch console with 7″ OLED screen",
+    "price": 349,
+    "color": "#d62828",
+    "image": "https://m.media-amazon.com/images/I/61b0xny96NL._SL1500_.jpg"
+  },
+  {
+    "id": 15,
+    "name": "Fitbit Charge 5",
+    "desc": "Fitbit fitness tracker with GPS",
+    "price": 149,
+    "color": "#003049",
+    "image": "https://m.media-amazon.com/images/I/61uj+9HQvzL._SL1500_.jpg"
+  },
+  {
+    "id": 16,
+    "name": "Google Pixel 8 Pro",
+    "desc": "Google Pixel 8 Pro with Tensor G4",
+    "price": 999,
+    "color": "#606c38",
+    "image": "https://m.media-amazon.com/images/I/51WUxum5O5L._SL1500_.jpg"
+  }
+]
+}

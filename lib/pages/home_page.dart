@@ -2,17 +2,37 @@ import 'package:first_flutter/models/catalog.dart';
 import 'package:first_flutter/widgets/item_widget.dart';
 import "package:flutter/material.dart";
 import 'package:first_flutter/widgets/drawer.dart';
+import 'package:flutter/services.dart';
+import 'dart:convert';
 
 
 
-class HomePage extends StatelessWidget{
+class HomePage extends StatefulWidget{
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
     final double days=30.1;
+
     final  String name="Parvati";
 
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadData();
+  }
+  loadData()async{
+   final  catalogJson=await rootBundle.loadString("assets/files/catalog.json");
+     final decodedData=jsonDecode(catalogJson);
+    var productsData=decodedData["products"];
+    print(productsData);
+  }
   @override
   Widget build(BuildContext context)
   {
+    final dummyList=List.generate(10,(index)=>CatalogModel.items[0]);
     return Scaffold(
       appBar:AppBar(
         // backgroundColor: Colors.white,
@@ -25,9 +45,10 @@ class HomePage extends StatelessWidget{
          padding: const EdgeInsets.all(11.0),
          child: ListView.builder(
          
-          itemCount:CatalogModel.items.length,
+          itemCount:dummyList.length,
           itemBuilder:(context,index){
-            return ItemWidget(item:CatalogModel.items[index],
+            return ItemWidget(
+              item:dummyList[index]
             );
           } ,
          ),
