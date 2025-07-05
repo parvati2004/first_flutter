@@ -1,62 +1,88 @@
-import 'package:first_flutter/models/catalog.dart';
-import 'package:first_flutter/widgets/item_widget.dart';
-import "package:flutter/material.dart";
-import 'package:first_flutter/widgets/drawer.dart';
-import 'package:flutter/services.dart';
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
+import '../models/catalog.dart';
+import '../widgets/item_widget.dart';
+import '../widgets/drawer.dart';
 
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
-class HomePage extends StatefulWidget{
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-    final double days=30.1;
+  final double days = 30.1;
+  final String name = "Parvati";
 
-    final  String name="Parvati";
-
-@override
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadData();
   }
-  loadData()async{
-   final  catalogJson=await rootBundle.loadString("assets/files/catalog.json");
-     final decodedData=jsonDecode(catalogJson);
-    var productsData=decodedData["products"];
-    print(productsData);
+
+  Future<void> loadData() async {
+    await Future.delayed(const Duration(seconds: 2));
+    final catalogJson = await rootBundle.loadString("assets/files/catalog.json");
+    final decodedData = jsonDecode(catalogJson);
+    final productsData = decodedData["products"] as List<dynamic>;
+
+    CatalogModel.items =
+        productsData.map((item) => Item.fromMap(item)).toList();
+    setState(() {}); // Rebuild UI now that data is ready
   }
+
   @override
-  Widget build(BuildContext context)
-  {
-    final dummyList=List.generate(10,(index)=>CatalogModel.items[0]);
+  Widget build(BuildContext context) {
+    final items = CatalogModel.items;
+
     return Scaffold(
-      appBar:AppBar(
-        // backgroundColor: Colors.white,
-        // elevation:0.0,
-        // iconTheme:IconThemeData(color:Colors.black),
+      appBar: AppBar(title: const Text("Catalog App")),
+      body: Padding(
+        padding: EdgeInsets.all(11.0),
+        child: items.isNotEmpty
+            ? GridView.builder(
+              gridDelegate:SliverGridDelegateWithFixedCrossAxisCount
+              (crossAxisCount:3,
+                 mainAxisSpacing:20, 
+                 crossAxisSpacing: 16,
+                 ),
+           
+             itemBuilder:(context,index){
+              final item=CatalogModel.items[index];
+              return Card(
+                clipBehavior:Clip.antiAlias ,
+                shape:  RoundedRectangleBorder(borderRadius:  BorderRadius.circular(15)),
+                child: GridTile(
+                  header: Container(child: Text(item.name,style:TextStyle(color:Colors.white),),
+                  width:100.0,
+                  padding: const EdgeInsets.all(12),
+                  decoration:BoxDecoration(
+                    color:Colors.deepPurple,
+                  ),
 
-        title:Text("Catalog App"),
+                  ),
+                  child:Image.network(item.image,fit:BoxFit.contain),
+                  
+                  footer:Container(
+                    child: Text
+                    (item.price.toString(),style:TextStyle(color:Colors.white),),
+                  width:100.0,
+                  padding: const EdgeInsets.all(12),
+                  decoration:BoxDecoration(
+                    color:Colors.black,
+                  ),
+
+                  ),
+              ));
+             } ,
+             itemCount: CatalogModel.items.length,
+             )
+            : Center(child: CircularProgressIndicator()),
       ),
-       body:Padding(
-         padding: const EdgeInsets.all(11.0),
-         child: ListView.builder(
-         
-          itemCount:dummyList.length,
-          itemBuilder:(context,index){
-            return ItemWidget(
-              item:dummyList[index]
-            );
-          } ,
-         ),
-       ),
-      drawer:MyDrawer(),//menu var click kela ki drawers yeil
-
+      drawer: MyDrawer(),
     );
   }
 }
-
-
