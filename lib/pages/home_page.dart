@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:first_flutter/widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:velocity_x/velocity_x.dart';
 
 import '../models/catalog.dart';
 import '../widgets/item_widget.dart';
@@ -31,58 +33,82 @@ class _HomePageState extends State<HomePage> {
 
     CatalogModel.items =
         productsData.map((item) => Item.fromMap(item)).toList();
-    setState(() {}); // Rebuild UI now that data is ready
+    setState(() {}); // rebuild UI
   }
 
   @override
   Widget build(BuildContext context) {
-    final items = CatalogModel.items;
+    final items = CatalogModel.items; // still available if you need it later
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Catalog App")),
-      body: Padding(
-        padding: EdgeInsets.all(11.0),
-        child: items.isNotEmpty
-            ? GridView.builder(
-              gridDelegate:SliverGridDelegateWithFixedCrossAxisCount
-              (crossAxisCount:3,
-                 mainAxisSpacing:20, 
-                 crossAxisSpacing: 16,
-                 ),
-           
-             itemBuilder:(context,index){
-              final item=CatalogModel.items[index];
-              return Card(
-                clipBehavior:Clip.antiAlias ,
-                shape:  RoundedRectangleBorder(borderRadius:  BorderRadius.circular(15)),
-                child: GridTile(
-                  header: Container(child: Text(item.name,style:TextStyle(color:Colors.white),),
-                  width:100.0,
-                  padding: const EdgeInsets.all(12),
-                  decoration:BoxDecoration(
-                    color:Colors.deepPurple,
-                  ),
-
-                  ),
-                  child:Image.network(item.image,fit:BoxFit.contain),
-                  
-                  footer:Container(
-                    child: Text
-                    (item.price.toString(),style:TextStyle(color:Colors.white),),
-                  width:100.0,
-                  padding: const EdgeInsets.all(12),
-                  decoration:BoxDecoration(
-                    color:Colors.black,
-                  ),
-
-                  ),
-              ));
-             } ,
-             itemCount: CatalogModel.items.length,
-             )
-            : Center(child: CircularProgressIndicator()),
+      backgroundColor: MyTheme.creamColor,,
+      body: SafeArea(
+        child: Container(
+          padding: Vx.m32,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const CatalogHeader(),
+              if (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
+               CatalogList().expand()                    // <-- list shows when data ready
+              else
+              Center(child: CircularProgressIndicator()),
+            ],
+          ),
+        ),
       ),
-      drawer: MyDrawer(),
     );
+  }
+}
+
+class CatalogHeader extends StatelessWidget {
+  const CatalogHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        "Catalog App".text.xl5.bold.color(MyTheme.darkBluishColor).make(),
+        "Trending Products".text.xl2.make(),
+        const SizedBox(height: 8), // small gap
+      ],
+    );
+  }
+}
+
+class CatalogList extends StatelessWidget {
+  const CatalogList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,                    // keeps the ListView happy in a Column
+      itemCount: CatalogModel.items.length,
+      itemBuilder: (context, index) {
+        final catalog = CatalogModel.items[index];
+        return CatalogItem(catalog: catalog);
+      },
+    );
+  }
+}
+
+class CatalogItem extends StatelessWidget {
+  final Item catalog;
+
+  const CatalogItem({Key? key, required this.catalog})
+      : assert(catalog != null),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Replace with your actual item widget layout
+    return VxBox(
+      child:Row(
+        children: [
+          Image.network(catalog.image)
+        ],
+      )
+    ).white.square(100).make();
   }
 }
