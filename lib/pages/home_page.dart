@@ -1,12 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-import 'package:first_flutter/widgets/themes.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:velocity_x/velocity_x.dart';
 
+import 'package:first_flutter/widgets/themes.dart';
+
 import '../models/catalog.dart';
-import '../widgets/item_widget.dart';
-import '../widgets/drawer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,9 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final double days = 30.1;
-  final String name = "Parvati";
-
   @override
   void initState() {
     super.initState();
@@ -26,33 +24,38 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> loadData() async {
+    // Show a 2‑second spinner so the UI doesn’t look frozen
     await Future.delayed(const Duration(seconds: 2));
+
+    // Read the local JSON asset
     final catalogJson = await rootBundle.loadString("assets/files/catalog.json");
     final decodedData = jsonDecode(catalogJson);
     final productsData = decodedData["products"] as List<dynamic>;
 
+    // Populate the global model
     CatalogModel.items =
         productsData.map((item) => Item.fromMap(item)).toList();
-    setState(() {}); // rebuild UI
+
+    setState(() {}); // Rebuild the screen
   }
 
   @override
   Widget build(BuildContext context) {
-    final items = CatalogModel.items; // still available if you need it later
-
     return Scaffold(
-      backgroundColor: MyTheme.creamColor,,
+      backgroundColor: MyTheme.creamColor,      // ✅ single comma
       body: SafeArea(
-        child: Container(
-          padding: Vx.m32,
+        child: Padding(
+          padding: const EdgeInsets.all(32),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CatalogHeader(),
-              if (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
-               CatalogList().expand()                    // <-- list shows when data ready
-              else
-              Center(child: CircularProgressIndicator()),
+              //
+              // List when ready, else a loader
+              //
+              CatalogModel.items.isNotEmpty
+                  ? const CatalogList().expand()
+                  : const Center(child: CircularProgressIndicator()),
             ],
           ),
         ),
@@ -71,7 +74,7 @@ class CatalogHeader extends StatelessWidget {
       children: [
         "Catalog App".text.xl5.bold.color(MyTheme.darkBluishColor).make(),
         "Trending Products".text.xl2.make(),
-        const SizedBox(height: 8), // small gap
+        8.heightBox,
       ],
     );
   }
@@ -82,13 +85,12 @@ class CatalogList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final items = CatalogModel.items;
     return ListView.builder(
-      shrinkWrap: true,                    // keeps the ListView happy in a Column
-      itemCount: CatalogModel.items.length,
-      itemBuilder: (context, index) {
-        final catalog = CatalogModel.items[index];
-        return CatalogItem(catalog: catalog);
-      },
+      shrinkWrap: true,
+      physics: const BouncingScrollPhysics(),
+      itemCount: items.length,
+      itemBuilder: (context, index) => CatalogItem(catalog: items[index]),
     );
   }
 }
@@ -96,19 +98,77 @@ class CatalogList extends StatelessWidget {
 class CatalogItem extends StatelessWidget {
   final Item catalog;
 
-  const CatalogItem({Key? key, required this.catalog})
-      : assert(catalog != null),
-        super(key: key);
+  const CatalogItem({super.key, required this.catalog});
 
   @override
   Widget build(BuildContext context) {
-    // Replace with your actual item widget layout
     return VxBox(
-      child:Row(
+      child: Row(
         children: [
-          Image.network(catalog.image)
+          CatalogImage(image:catalog.image
+          ),
+          //
+          // Product image
+          //
+         
+                         // 40 % of screen width
+
+          //
+          // Product details
+          //
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              ButtonBar(
+                alignment: MainAxisAlignment.spaceBetween,
+                buttonPadding: EdgeInsets.zero,
+                 ),
+              
+              children: [
+                catalog.name.text.lg.bold.make(),
+                catalog.desc.text.bodySmall(context).make(),
+                10.heightBox,
+                "₹${catalog.price}".text.xl.make(),
+                ElevatedButton(
+                  onPressed:(){},
+                  style:ButtonStyle(backgroundColor: MaterialStateProperty.all(MyTheme.darkBluishColor
+                  ),
+                  shape:MaterialStateProperty.all(StadiumBorder())
+                  
+                  ),
+                  child:"Buy".text.make(),
+                ).pOnly(right:8.0)
+         
+              
+              ],
+             
+            ),
+          ),
         ],
-      )
-    ).white.square(100).make();
+      ),
+    ).white.roundedLg.square(150).make().py16();
+  }
+}
+
+
+class CatalogImage extends StatelessWidget {
+
+  final String image;
+  const CatalogImage({
+    Key? key,
+    required this.image,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  Image.network(image)
+           .box
+              .roundedLg
+              .p16
+              .color(MyTheme.creamColor) // ✅ use .color(...) before .make()
+              .make()
+              .p16()
+              .w40(context);
+  
   }
 }
