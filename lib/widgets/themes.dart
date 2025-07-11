@@ -32,12 +32,15 @@ class MyTheme {
           backgroundColor: Colors.transparent,
           elevation: 0,
           foregroundColor: Colors.black,
-          iconTheme: IconThemeData(color:Colors.white)
+          titleTextStyle: TextStyle(color:Colors.white),
+          iconTheme: IconThemeData(color:Colors.white),
+          toolbarTextStyle: TextStyle(color:Colors.white),
+        
         ),
       );
-      static Color creamColor = const Color(0xFFF5F5F5); // Corrected hex
+      static Color creamColor =  Color(0xFFF5F5F5); // Corrected hex
   static Color darkCreamColor = Vx.gray900;
-  static Color darkBluishColor = const Color(0xFF403B58);
+  static Color darkBluishColor =  Color(0xFF403B58);
   static Color lightBluishColor = Vx.indigo500;
        
 

@@ -18,12 +18,13 @@ class CatalogList extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       itemCount: items.length,
       itemBuilder: (context, index) {
-        final catalog=CatalogModel.items[index];
+        final catalog=CatalogModel.getByPosition(index);
         return InkWell(
           onTap:()=>
           Navigator.push(context, 
           MaterialPageRoute(builder:(context)
-          =>HomeDetailPage(catalog: catalog))),
+          =>HomeDetailPage(catalog: catalog,)
+          )),
           child: CatalogItem(catalog:catalog));
       }
     );
