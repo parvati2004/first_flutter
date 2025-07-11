@@ -2,6 +2,8 @@ import 'package:first_flutter/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:velocity_x/velocity_x.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -39,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     return Material(
-      color: Colors.white,
+      color: context.canvasColor,
       child: SingleChildScrollView(
         child:Form(
           key:_formKey,
@@ -115,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
           
                     // Simple “Login” container (no navigation code kept)
                   Material(
-                    color:Colors.blue,
+                    color:Colors.deepPurple,
                       borderRadius:
                              BorderRadius.circular(changeButton?50:8),
                     child: InkWell(

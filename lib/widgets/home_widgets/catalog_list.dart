@@ -2,7 +2,7 @@
 import 'package:first_flutter/models/catalog.dart';
 import 'package:first_flutter/pages/home_detail_page.dart';
 import 'package:first_flutter/widgets/home_widgets/catalog_image.dart';
-import 'package:first_flutter/widgets/themes.dart';
+
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -43,26 +43,27 @@ class CatalogItem extends StatelessWidget {
         children: [
           Hero(
             tag:Key(catalog.id.toString()),
-            child: CatalogImage(image: catalog.image)),
+            child: CatalogImage(image: catalog.image),),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [ // ✅ FIX: This was outside the Column!
-                catalog.name.text.lg.bold.make(),
+                  catalog.name.text.lg.color(context.accentColor).bold.make(),
                 catalog.desc.text.bodySmall(context).make(),
                 10.heightBox,
                 ButtonBar(
                   alignment: MainAxisAlignment.spaceBetween,
                   buttonPadding: EdgeInsets.zero,
                   children: [
+                  
                     "₹${catalog.price}".text.xl.make(),
                     ElevatedButton(
                       onPressed: () {},
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(MyTheme.darkBluishColor),
+                        backgroundColor: MaterialStateProperty.all(context.theme.colorScheme.secondary),
                         shape: MaterialStateProperty.all(const StadiumBorder()),
                       ),
-                      child: "Buy".text.make(),
+                      child: "Add to cart".text.make(),
                     ).pOnly(right: 8.0),
                   ],
                 )
@@ -71,6 +72,7 @@ class CatalogItem extends StatelessWidget {
           ),
         ],
       ),
-    ).white.roundedLg.square(150).make().py16();
+    ).color(context.cardColor).roundedLg.height(150).make().py16();
+
   }
 }
