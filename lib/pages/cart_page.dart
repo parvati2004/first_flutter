@@ -31,15 +31,26 @@ class _CartTotal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   
      final CartModel _cart=(VxState.store as MyStore).cart;
     return SizedBox(
       height:200,
       child:Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          "\$${_cart.totalPrice}"
-          .text.xl5.color(context.theme.colorScheme.secondary).make(),
-          30.widthBox,
+           VxBuilder<MyStore>(
+           
+            mutations: {RemoveMutation},
+            builder: (context, store, status) {
+              print("Rebuild happen");
+              return "\$${_cart.totalPrice}"
+                  .text
+                  .xl5
+                  .color(context.theme.colorScheme.secondary)
+                  .make();
+            },
+          ),
+        30.widthBox,
           ElevatedButton(
             onPressed:(){
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:"Buying not supported yet.".text.make(),
@@ -55,9 +66,11 @@ class _CartTotal extends StatelessWidget {
 }
 
 class _CartList extends StatelessWidget {
+  const _CartList({super.key});
 
   @override
   Widget build(BuildContext context) {
+    VxState.listen(context, to: [RemoveMutation]);
     final CartModel _cart=(VxState.store as MyStore).cart;
     return _cart.items.isEmpty?"Nothing to show".text.xl3.makeCentered():ListView.builder(
       itemCount:_cart.items.length,
@@ -65,10 +78,9 @@ class _CartList extends StatelessWidget {
       ListTile(
         leading: Icon(Icons.done),
         trailing:IconButton(icon:Icon(Icons.remove_circle_outline),
-        onPressed: (){
-          _cart.remove(_cart.items[index]);
-          
-        },
+        onPressed: ()=>
+          RemoveMutation(_cart.items[index]),
+  
         ),
         title:_cart.items[index].text.make(),
 
