@@ -1,6 +1,8 @@
 
 import 'package:first_flutter/models/catalog.dart';
 import 'package:first_flutter/pages/home_detail_page.dart';
+import 'package:first_flutter/utils/routes.dart';
+import 'package:first_flutter/widgets/home_widgets/add_to_cart.dart';
 import 'package:first_flutter/widgets/home_widgets/catalog_image.dart';
 
 import 'package:flutter/material.dart';
@@ -13,7 +15,9 @@ class CatalogList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = CatalogModel.items ;
-    return ListView.builder(
+    return !context.isMobile?
+     GridView.builder(
+      gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
       itemCount: items.length,
@@ -21,10 +25,8 @@ class CatalogList extends StatelessWidget {
         final catalog=CatalogModel.items[index];
         return InkWell(
           onTap:()=>
-          Navigator.push(context, 
-          MaterialPageRoute(builder:(context)
-          =>HomeDetailPage(catalog: catalog,)
-          )),
+        context.vxNav.push(Uri(path:MyRoutes.homeDetailRoute,queryParameters: {"id":catalog.id.toString()}),params:catalog),
+          
           child: CatalogItem(catalog:catalog));
       }
     );
@@ -39,9 +41,7 @@ class CatalogItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return VxBox(
-      child: Row(
-        children: [
+    var children = [
           Hero(
             tag:Key(catalog.id.toString()),
             child: CatalogImage(image: catalog.image),),
@@ -58,16 +58,19 @@ class CatalogItem extends StatelessWidget {
                  
                   children: [
                     "\$${catalog.price}".text.xl.make(),
-                    _AddToCart(catalog:catalog),
+                    AddToCart(catalog:catalog),
                   ],
             
                   
-                ),
+                ).pOnly(right:8.0),
               ],
-            ),
+            ).p(context.isMobile?0:16),
           ),
-        ],
-      ),
+        ];
+    return VxBox(
+      child: context.isMobile? Row(
+        children: children,
+      ):Column( children: children),
     ).color(context.cardColor).roundedLg.height(150).make().py16();
 
   }
