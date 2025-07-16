@@ -1,15 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
 import 'package:first_flutter/core/store.dart';
+import 'package:first_flutter/models/cart.dart';
 import 'package:first_flutter/utils/routes.dart';
 import 'package:first_flutter/widgets/home_widgets/catalog_header.dart';
 import 'package:first_flutter/widgets/home_widgets/catalog_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:velocity_x/velocity_x.dart';
-import 'package:http/http.dart as http';
+import 'package:http/http.dart' as http;
 import 'package:first_flutter/widgets/themes.dart';
 import '../models/catalog.dart';
 
@@ -48,7 +47,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: context.canvasColor,
        
-       floatingActionButton: VxBuilder(
+        floatingActionButton: VxBuilder(
         mutations: {AddMutation, RemoveMutation},
         builder: (ctx, _) => FloatingActionButton(
           onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),

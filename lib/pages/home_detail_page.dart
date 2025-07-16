@@ -1,4 +1,5 @@
 import 'package:first_flutter/models/catalog.dart';
+import 'package:first_flutter/widgets/home_widgets/add_to_cart.dart';
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:velocity_x/velocity_x.dart';

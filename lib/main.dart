@@ -7,12 +7,13 @@ import 'widgets/themes.dart';
 import 'pages/home_page.dart';
 import 'pages/login_page.dart';
 import 'utils/routes.dart';
-import
 import 'package:url_strategy/url_strategy.dart';
 
+
 void main() {
+   setPathUrlStrategy();
   runApp(VxState(
-    setPathUrlStrategy();
+   
     store: MyStore(),
     child:  MyApp()));
 }
